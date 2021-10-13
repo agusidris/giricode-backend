@@ -38,7 +38,7 @@ class AuthController extends Controller
             //response login "failed"
             return response()->json([
                 'success' => false,
-                'message' => 'Email or Password is incorrect'
+                'message' => 'Username or Password is incorrect'
             ], 401);
 
         }

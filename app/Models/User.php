@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Tymon\JWTAuth\Contracts\JWTSubject; // <-- import JWTSubject
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -65,10 +66,10 @@ class User extends Authenticatable implements JWTSubject // <-- tambahkan ini
      * @param  mixed $image
      * @return void
      */
-    public function getImageAttribute($image)
-    {
-        return asset('storage/users/' . $image);
-    }
+    // public function getImageAttribute($image)
+    // {
+    //     return asset('storage/users/' . $image);
+    // }
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
@@ -88,5 +89,16 @@ class User extends Authenticatable implements JWTSubject // <-- tambahkan ini
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    /**
+     * getCreatedAtAttribute
+     *
+     * @param  mixed $date
+     * @return void
+     */
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::parse($date)->isoFormat('DD MMM Y');
     }
 }

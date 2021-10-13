@@ -35,7 +35,7 @@ class UserController extends Controller
 
             $users = User::when(request()->q, function($users) {
                 $users = $users->where('name', 'like', '%'. request()->q . '%');
-            })->latest()->paginate(5);
+            })->orderByDesc('id')->paginate(5);
 
             // return with Api Resource
             return new UserResource(true, 'List Data User', $users);

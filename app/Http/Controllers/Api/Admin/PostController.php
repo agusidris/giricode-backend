@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\Post;
+use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -37,10 +39,49 @@ class PostController extends Controller
             // get Posts
             $posts = Post::when(request()->q, function($posts) {
                 $posts = $posts->where('title', 'like', '%'. request()->q . '%');
-            })->with('category', 'tags')->latest()->paginate(5);
+            })->with('category', 'tags', 'user')->orderByDesc('id')->paginate(5);
 
             // return with Api Resource
-            return new PostResource(true, 'List Data Posts', $posts);
+            return new PostResource(true, 'List Data Post', $posts);
+        }
+    }
+
+    /**
+     * allCategories
+     *
+     * @return void
+     */
+    public function allCategories()
+    {
+        $userId = auth()->user()->id;
+        $role = auth()->user()->role;
+
+        // check role
+        if ($role === 'programmer' || $role === 'admin' || $role === 'operator') {
+            // get Posts
+            $categories = Category::when(request()->q, function($categories) {
+                $categories = $categories->where('title', 'like', '%'. request()->q . '%');
+            })->first()->get();
+
+            // return with Api Resource
+            return new PostResource(true, 'List Data Categories', $categories);
+        }
+    }
+
+    public function allTags()
+    {
+        $userId = auth()->user()->id;
+        $role = auth()->user()->role;
+
+        // check role
+        if ($role === 'programmer' || $role === 'admin' || $role === 'operator') {
+            // get Posts
+            $tags = Tag::when(request()->q, function($tags) {
+                $tags = $tags->where('title', 'like', '%'. request()->q . '%');
+            })->first()->with('color')->get();
+
+            // return with Api Resource
+            return new PostResource(true, 'List Data Tags', $tags);
         }
     }
 
@@ -55,9 +96,10 @@ class PostController extends Controller
         $userId = auth()->user()->id;
         $role = auth()->user()->role;
 
-        // create post
+        // check role
         if ($role === 'programmer' || $role === 'admin' || $role === 'operator') {
 
+            // check validator $request
             $validator = Validator::make($request->all(), [
                 'image'         => 'required|image|mimes:jpeg,jpg,png|max:2000',
                 'title'         => 'required|unique:posts',
@@ -74,6 +116,7 @@ class PostController extends Controller
             $image = $request->file('image');
             $image->storeAs('public/posts', $image->hashName());
 
+            // create post
             $post = Post::create([
                 'image'         => $image->hashName(),
                 'title'         => $request->title,

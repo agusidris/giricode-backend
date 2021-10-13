@@ -5,10 +5,13 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Post extends Model
+class Post extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     /**
      * guarded
@@ -16,6 +19,11 @@ class Post extends Model
      * @var array
      */
     protected $guarded = [];
+
+    protected $hidden = [
+        'category_id',
+        'pivot'
+    ];
 
     /**
      * category
@@ -73,10 +81,10 @@ class Post extends Model
      * @param  mixed $image
      * @return void
      */
-    public function getImageAttribute($image)
-    {
-        return asset('storage/posts/' . $image);
-    }
+    // public function getImageAttribute($image)
+    // {
+    //     return asset('storage/posts/' . $image);
+    // }
 
     /**
      * getCreatedAtAttribute
@@ -86,7 +94,24 @@ class Post extends Model
      */
     public function getCreatedAtAttribute($date)
     {
-        return Carbon::parse($date)->format('d-M-Y');
+        return Carbon::parse($date)->isoFormat('dddd, DD MMM Y');
+    }
+
+    /**
+     * getUpdatedAtAttribute
+     *
+     * @param  mixed $date
+     * @return void
+     */
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon::parse($date)->isoFormat('dddd, DD MMM Y');
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+              ->width(600);
     }
 
 }

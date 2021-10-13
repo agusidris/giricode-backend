@@ -37,7 +37,7 @@ class CategoryController extends Controller
             //get categories
             $categories = Category::when(request()->q, function($categories) {
                 $categories = $categories->where('name', 'like', '%'. request()->q . '%');
-            })->latest()->paginate(5);
+            })->orderByDesc('id')->paginate(5);
 
             //return with Api Resource
             return new CategoryResource(true, 'List Data Categories', $categories);

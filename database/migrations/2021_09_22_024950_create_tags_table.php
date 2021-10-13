@@ -17,8 +17,11 @@ class CreateTagsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->string('color');
+            $table->unsignedBigInteger('color_id');
             $table->timestamps();
+
+            //relationship color
+            $table->foreign('color_id')->references('id')->on('colors');
         });
     }
 

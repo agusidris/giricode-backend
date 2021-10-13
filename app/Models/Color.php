@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,6 +16,15 @@ class Color extends Model
      * @var array
      */
     protected $guarded = [];
+
+    /**
+     * hidden
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'updated_at'
+    ];
 
     /**
      * post

@@ -37,7 +37,7 @@ class TagController extends Controller
             // get tags
             $tags = Tag::when(request()->q, function($tags) {
                 $tags = $tags->where('name', 'like', '%'. request()->q . '%');
-            })->latest()->paginate(5);
+            })->with('color')->orderByDesc('id')->paginate(5);
 
             // return with Api Resource
             return new TagResource(true, 'List Data Tags', $tags);
@@ -60,7 +60,7 @@ class TagController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'name'      => 'required|unique:tags',
-                'color'     => 'required'
+                'color_id'  => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -70,7 +70,7 @@ class TagController extends Controller
             $tag = Tag::create([
                 'name'      => $request->name,
                 'slug'      => Str::slug($request->name, '-'),
-                'color'     => $request->color
+                'color_id'  => $request->color_id
             ]);
 
             if($tag) {
@@ -124,7 +124,7 @@ class TagController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'name'      => 'required|unique:tags,name,'.$tag->id,
-                'color'     => 'required'
+                'color_id'  => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -135,7 +135,7 @@ class TagController extends Controller
             $tag->update([
                 'name'      => $request->name,
                 'slug'      => Str::slug($request->name, '-'),
-                'color'     => $request->color
+                'color_id'  => $request->color_id
             ]);
 
             if ($tag) {
