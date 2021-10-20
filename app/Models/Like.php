@@ -6,29 +6,17 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class Like extends Model
 {
     use HasFactory;
 
-    /**
-     * user
-     *
-     * @return void
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+	public function likeable() {
+		return $this->morphTo();
+	}
 
-    /**
-     * replies
-     *
-     * @return void
-     */
-    public function replies()
-    {
-        return $this->hasMany(Comment::class, 'parent_id');
-    }
+	public function user() {
+		return $this->belongsTo(User::class);
+	}
 
     /**
      * getCreatedAtAttribute

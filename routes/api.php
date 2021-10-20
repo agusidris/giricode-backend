@@ -34,6 +34,9 @@ Route::prefix('web')->group(function () {
     //route web Posts
     Route::resource('/posts', App\Http\Controllers\Api\Web\PostController::class, ['except' => ['create', 'store', 'edit', 'update', 'destroy'], 'as' => 'web']);
 
+    //route web Post Series
+    Route::resource('/postseries', App\Http\Controllers\Api\Web\PostSeriesController::class, ['except' => ['create', 'store', 'edit', 'update', 'destroy'], 'as' => 'web']);
+
     //route web menus
     Route::get('/menus', [App\Http\Controllers\Api\Web\MenuController::class, 'index']);
 
@@ -42,6 +45,14 @@ Route::prefix('web')->group(function () {
 
     //route web tags
     Route::resource('/tags', App\Http\Controllers\Api\Web\TagController::class, ['except' => ['create', 'store', 'edit', 'update', 'destroy'], 'as' => 'web']);
+
+    Route::post('/post/{post}/likes', [App\Http\Controllers\Api\Web\PostLikeController::class, 'like']);
+
+    Route::post('/post/{post}/comment', [App\Http\Controllers\Api\Web\CommentController::class, 'comment']);
+
+    Route::post('/post/{post}/reply', [App\Http\Controllers\Api\Web\CommentController::class, 'reply']);
+
+    Route::get('/visitor', [App\Http\Controllers\Api\Web\VisitorController::class, 'getUserIp']);
 });
 
 //group route with prefix "admin"
@@ -64,6 +75,8 @@ Route::prefix('admin')->group(function () {
 
     // Post resource
     Route::apiResource('/posts', App\Http\Controllers\Api\Admin\PostController::class);
+
+    Route::apiResource('/postseries', App\Http\Controllers\Api\Admin\PostSeriesController::class);
 
     Route::get('/post/categories', [App\Http\Controllers\Api\Admin\PostController::class, 'allCategories']);
 

@@ -65,6 +65,16 @@ class Post extends Model implements HasMedia
 	}
 
     /**
+     * post_series
+     *
+     * @return void
+     */
+    public function post_series()
+    {
+        return $this->belongsToMany(PostSeries::class);
+    }
+
+    /**
      * Comments
      *
      * @return void
@@ -72,6 +82,16 @@ class Post extends Model implements HasMedia
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id');
+    }
+
+    /**
+     * commentcount
+     *
+     * @return void
+     */
+    public function commentcount()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
 

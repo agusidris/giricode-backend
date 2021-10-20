@@ -50,6 +50,20 @@ class User extends Authenticatable implements JWTSubject // <-- tambahkan ini
     return $this->hasMany(Post::class);
    }
 
+    /**
+    * prooducts
+    *
+    * @return void
+    */
+    public function postseries()
+    {
+     return $this->hasMany(PostSeries::class);
+    }
+
+    public function ownsPost(Post $post) {
+        return $this->id === $post->user->id;
+    }
+
    /**
     * hasLikedPost not increment again
     *
