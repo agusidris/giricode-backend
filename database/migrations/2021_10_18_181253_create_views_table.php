@@ -17,8 +17,8 @@ class CreateViewsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('post_id');
             $table->ipAddress('ipAddress');
-            $table->string('countryCode');
-            $table->string('countryName');
+            $table->string('countryCode')->default('na');
+            $table->string('countryName')->default('na');
             $table->timestamps();
 
             //relationship post

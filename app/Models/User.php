@@ -73,7 +73,9 @@ class User extends Authenticatable implements JWTSubject // <-- tambahkan ini
 		return $post->likes->where('user_id', $this->id)->count() === 1;
 	}
 
-
+    public function hasViewedPost(Post $post) {
+        return $post->views->where('user_id', $this->id)->count() === 1;
+    }
     /**
      * getImageAttribute
      *

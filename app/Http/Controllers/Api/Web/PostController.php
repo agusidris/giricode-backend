@@ -19,7 +19,7 @@ class PostController extends Controller
         // get Posts
         $posts = Post::when(request()->q, function($posts) {
             $posts = $posts->where('title', 'like', '%'. request()->q . '%');
-        })->with('post_series.posts', 'category', 'tags.color', 'user', 'likes.user')->withCount('likes', 'commentcount as comments_count')->latest()->paginate(6);
+        })->with('post_series.posts', 'category', 'tags.color', 'user', 'likes.user')->withCount('likes', 'commentcount as comments_count', 'views')->latest()->paginate(6);
 
         // return with Api Resource
         return new PostResource(true, 'List Data Post', $posts);
@@ -27,7 +27,7 @@ class PostController extends Controller
 
     public function show($slug)
     {
-        $post = Post::with('post_series.posts', 'category', 'tags.color', 'user', 'likes.user', 'comments.replies')->withCount('likes', 'commentcount as comments_count')
+        $post = Post::with('post_series.posts', 'category', 'tags.color', 'user', 'likes.user', 'comments.replies', 'views')->withCount('likes', 'commentcount as comments_count', 'views')
         ->where('slug', $slug)->first();
 
         if($post) {

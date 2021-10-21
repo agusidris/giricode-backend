@@ -52,7 +52,7 @@ Route::prefix('web')->group(function () {
 
     Route::post('/post/{post}/reply', [App\Http\Controllers\Api\Web\CommentController::class, 'reply']);
 
-    Route::get('/visitor', [App\Http\Controllers\Api\Web\VisitorController::class, 'getUserIp']);
+    Route::post('/visitor/{post}', [App\Http\Controllers\Api\Web\VisitorController::class, 'getUserIp']);
 });
 
 //group route with prefix "admin"

@@ -64,6 +64,10 @@ class Post extends Model implements HasMedia
 		return $this->morphMany(Like::class, 'likeable');
 	}
 
+    public function views() {
+		return $this->hasMany(View::class);
+	}
+
     /**
      * post_series
      *

@@ -27,4 +27,8 @@ class PostPolicy
     public function comment(User $user, Post $post) {
         return $user->ownsPost($post);
     }
+
+    public function view(User $user, Post $post) {
+        return $user->ownsPost($post);
+    }
 }
