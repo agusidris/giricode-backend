@@ -31,6 +31,11 @@ class CategorySeeder extends Seeder
         ]);
         Category::create([
             'image'     => 'abcdrfere',
+            'name'      => 'Nuxt Js',
+            'slug'      => 'nuxt-js',
+        ]);
+        Category::create([
+            'image'     => 'abcdrfere',
             'name'      => 'Laravel',
             'slug'      => 'laravel',
         ]);

@@ -58,7 +58,7 @@ class CategoryController extends Controller
         if ($role === 'programmer' || $role === 'admin' || $role === 'operator') {
 
             $validator = Validator::make($request->all(), [
-                'image'    => 'required|image|mimes:jpeg,jpg,png|max:2000',
+                'image'    => 'required|image|mimes:jpeg,jpg,png,svg|max:2000',
                 'name'     => 'required|unique:categories',
             ]);
 

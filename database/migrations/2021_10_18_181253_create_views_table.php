@@ -16,8 +16,13 @@ class CreateViewsTable extends Migration
         Schema::create('views', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('post_id');
-            $table->ipAddress('ip');
+            $table->ipAddress('ipAddress');
+            $table->string('countryCode');
+            $table->string('countryName');
             $table->timestamps();
+
+            //relationship post
+            $table->foreign('post_id')->references('id')->on('posts');
         });
     }
 

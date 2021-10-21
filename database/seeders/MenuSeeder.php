@@ -24,7 +24,7 @@ class MenuSeeder extends Seeder
         ]);
         Menu::create([
             'name'      => 'Nuxt Js',
-            'url'       => '/nuxt-js'
+            'url'       => '/category/nuxt-js'
         ]);
     }
 }
