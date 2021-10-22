@@ -12,6 +12,12 @@ use Stevebauman\Location\Facades\Location;
 class VisitorController extends Controller
 {
 
+    /**
+     * getUserIp
+     *
+     * @param  mixed $post
+     * @return void
+     */
     public function getUserIp(Post $post)
     {
         $userId = auth()->user();

@@ -60,9 +60,9 @@ class User extends Authenticatable implements JWTSubject // <-- tambahkan ini
      return $this->hasMany(PostSeries::class);
     }
 
-    public function ownsPost(Post $post) {
-        return $this->id === $post->user->id;
-    }
+    // public function ownsPost(Post $post) {
+    //     return $this->id === $post->user->id;
+    // }
 
    /**
     * hasLikedPost not increment again
@@ -73,9 +73,6 @@ class User extends Authenticatable implements JWTSubject // <-- tambahkan ini
 		return $post->likes->where('user_id', $this->id)->count() === 1;
 	}
 
-    public function hasViewedPost(Post $post) {
-        return $post->views->where('user_id', $this->id)->count() === 1;
-    }
     /**
      * getImageAttribute
      *

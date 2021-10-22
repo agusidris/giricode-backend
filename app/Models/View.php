@@ -16,11 +16,11 @@ class View extends Model
      */
     protected $guarded = [];
 
-
-	public function user() {
-		return $this->belongsTo(User::class);
-	}
-
+    /**
+     * post
+     *
+     * @return void
+     */
     public function post()
     {
         return $this->belongsTo(Post::class);
