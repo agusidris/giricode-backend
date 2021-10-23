@@ -264,88 +264,45 @@ class UserController extends Controller
 
             $user = User::findOrFail($user->id);
 
-            if(!empty($request->password)) {
+            // check image update
+            if($request->file('image')) {
 
-                // check image update
-                if($request->file('image')) {
+                // remove old image
+                Storage::disk('local')->delete('public/users/'.basename($user->image));
 
-                    // remove old image
-                    Storage::disk('local')->delete('public/users/'.basename($user->image));
-
-                    // upload new image
-                    $image = $request->file('image');
-                    $image->storeAs('public/users', $image->hashName());
-
-                    // update post with new image
-                    $user->update([
-                        'role'          => $request->role,
-                        'image'         => $image->hashName(),
-                        'name'          => $request->name,
-                        'info'          => $request->info,
-                        'username'      => $request->username,
-                        'email'         => $request->email,
-                        'password'      => bcrypt($request->password)
-                    ]);
-                }
+                // upload new image
+                $image = $request->file('image');
+                $image->storeAs('public/users', $image->hashName());
 
                 // update post with new image
                 $user->update([
                     'role'          => $request->role,
+                    'image'         => $image->hashName(),
                     'name'          => $request->name,
                     'info'          => $request->info,
                     'username'      => $request->username,
                     'email'         => $request->email,
                     'password'      => bcrypt($request->password)
                 ]);
-
-                if ($user) {
-                    // return success with Api Resource
-                    return new UserResource(true, 'Data User Berhasil Diupdate!', $user);
-                }
-
-                // return failed with Api Resource
-                return new UserResource(false, 'Data User Gagal Diupdate!', null);
-
-            } else {
-
-                // check image update
-                if($request->file('image')) {
-
-                    // remove old image
-                    Storage::disk('local')->delete('public/users/'.basename($user->image));
-
-                    // upload new image
-                    $image = $request->file('image');
-                    $image->storeAs('public/users', $image->hashName());
-
-                    // update post with new image
-                    $user->update([
-                        'role'          => $request->role,
-                        'image'         => $image->hashName(),
-                        'name'          => $request->name,
-                        'info'          => $request->info,
-                        'username'      => $request->username,
-                        'email'         => $request->email
-                    ]);
-                }
-
-                // update post with new image
-                $user->update([
-                    'role'          => $request->role,
-                    'name'          => $request->name,
-                    'info'          => $request->info,
-                    'username'      => $request->username,
-                    'email'         => $request->email
-                ]);
-
-                if ($user) {
-                    // return success with Api Resource
-                    return new UserResource(true, 'Data User Berhasil Diupdate!', $user);
-                }
-
-                // return failed with Api Resource
-                return new UserResource(false, 'Data User Gagal Diupdate!', null);
             }
+
+            // update post with new image
+            $user->update([
+                'role'          => $request->role,
+                'name'          => $request->name,
+                'info'          => $request->info,
+                'username'      => $request->username,
+                'email'         => $request->email,
+                'password'      => bcrypt($request->password)
+            ]);
+
+            if ($user) {
+                // return success with Api Resource
+                return new UserResource(true, 'Data User Berhasil Diupdate!', $user);
+            }
+
+            // return failed with Api Resource
+            return new UserResource(false, 'Data User Gagal Diupdate!', null);
 
         } else if ($role === 'admin') {
 
