@@ -551,7 +551,7 @@ class UserController extends Controller
                 return new UserResource(false, 'Data User Gagal Diupdate!', null);
 
             } else {
-                return (new UserResource(false, 'Akses Ditolak, Anda Tidak dapat Merubah Peran yang lebih tinggi, Hubungi Admin!', null))->setStatusCode(422);
+                return (new UserResource(false, 'Akses Ditolak, Anda Tidak dapat Merubah Peran yang lebih tinggi, Hubungi Admin!', null))->response()->setStatusCode(422);
             }
         }
     }
