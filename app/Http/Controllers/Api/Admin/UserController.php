@@ -447,7 +447,7 @@ class UserController extends Controller
                 return new UserResource(false, 'Data User Gagal Diupdate!', null);
 
             } else {
-                return new UserResource(false, 'Akses Ditolak!', null);
+                return new UserResource(false, 'Akses Ditolak, Anda Tidak dapat Merubah Peran yang lebih tinggi, Hubungi Programmer!', null);
             }
 
         } else if ($role === 'operator') {
@@ -551,7 +551,7 @@ class UserController extends Controller
                 return new UserResource(false, 'Data User Gagal Diupdate!', null);
 
             } else {
-                return new UserResource(false, 'Akses Ditolak!', null);
+                return new UserResource(false, 'Akses Ditolak, Anda Tidak dapat Merubah Peran yang lebih tinggi, Hubungi Admin!', null);
             }
         }
     }
