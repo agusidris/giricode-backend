@@ -46,29 +46,29 @@ class VisitorController extends Controller
         $check = View::where('post_id', $post->id)->where('ipAddress', $ipAddress)->whereDate('created_at', Carbon::today())->first();
         return $post;
 
-    //     if ($ipAddress === '127.0.0.1' || $ipAddress === 'UNKNOWN') {
+        if ($ipAddress === '127.0.0.1' || $ipAddress === 'UNKNOWN') {
 
-    //         return new VisitorResource(false, 'Visitor Berjalan di Localhost', $ipAddress);
+            return new VisitorResource(false, 'Visitor Berjalan di Localhost', $ipAddress);
 
-    //     }  else {
+        }  else {
 
-    //         if ($check) {
-    //             return new VisitorResource(false, 'Visitor Sudah Terdaftar hari ini', null);
-    //         }
+            if ($check) {
+                return new VisitorResource(false, 'Visitor Sudah Terdaftar hari ini', null);
+            }
 
-    //         $location = Location::get($ipAddress);
+            $location = Location::get($ipAddress);
 
-    //         // create post
-    //         $view = View::create([
-    //             'post_id'       => $post->id,
-    //             'ipAddress'     => $location->ip,
-    //             'countryCode'   => $location->countryCode,
-    //             'countryName'   => $location->countryName
-    //         ]);
+            // create post
+            $view = View::create([
+                'post_id'       => $post->id,
+                'ipAddress'     => $location->ip,
+                'countryCode'   => $location->countryCode,
+                'countryName'   => $location->countryName
+            ]);
 
-    //         return new VisitorResource(true, 'Visitor Berhasil', $view);
+            return new VisitorResource(true, 'Visitor Berhasil', $view);
 
-    //     }
-    // }
+        }
     }
+
 }
