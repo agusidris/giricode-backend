@@ -21,7 +21,7 @@ class VisitorController extends Controller
     public function getUserIp($slug)
     {
         $userId = auth()->user();
-        $post = Post::findOrFail($slug);
+        $post = Post::where('slug', $slug)->first();
 
         $ipAddress = '';
 
