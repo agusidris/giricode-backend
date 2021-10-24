@@ -44,7 +44,7 @@ class VisitorController extends Controller
         // return $location;
 
         $check = View::where('post_id', $post->id)->where('ipAddress', $ipAddress)->whereDate('created_at', Carbon::today())->first();
-        return $post;
+        // return $post;
 
         if ($ipAddress === '127.0.0.1' || $ipAddress === 'UNKNOWN') {
 
