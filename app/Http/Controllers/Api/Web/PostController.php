@@ -27,7 +27,7 @@ class PostController extends Controller
 
     public function show($slug)
     {
-        $post = Post::with('post_series.posts', 'category', 'tags.color', 'user', 'likes.user', 'comments.replies.user', 'views')->withCount('likes', 'commentcount as comments_count', 'views')
+        $post = Post::with('post_series.posts', 'category', 'tags.color', 'user', 'likes.user', 'comments.user.replies.user', 'views')->withCount('likes', 'commentcount as comments_count', 'views')
         ->where('slug', $slug)->first();
 
         if($post) {
