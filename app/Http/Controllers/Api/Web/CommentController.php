@@ -46,11 +46,12 @@ class CommentController extends Controller
     public function reply(Post $post, $id, Request $request)
     {
         $userId = auth()->user();
+        $comment = Comment::whereId($id)->first();
 
         $reply = new Comment;
         $reply->comment = $request->comment;
         $reply->user()->associate($userId);
-        $reply->parent_id=$id;
+        $reply->parent_id=$comment->id;
         $post->comments()->save($reply);
 
         if($post) {
