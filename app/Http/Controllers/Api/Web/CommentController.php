@@ -30,24 +30,42 @@ class CommentController extends Controller
     {
         $userId = auth()->user();
 
-        $comment = new Comment;
-        $comment->comment = $request->comment;
-        $comment->user()->associate($userId);
-        $post->comments()->save($comment);
+        if ($userId) {
+            $comment = new Comment;
+            $comment->comment = $request->comment;
+            $comment->user()->associate($userId);
+            $post->comments()->save($comment);
 
-        return new CommentResource(true, 'Comment berhasil', null);
+            if($post) {
+                //return success with Api Resource
+                return new CommentResource(true, 'Comment Berhasil Disimpan!', null);
+            }
+
+            return new CommentResource(false, 'Comment Gagal Disimpan!', null);
+        }
+
+        return new CommentResource(false, 'Login dulu', null);
     }
 
     public function reply(Post $post, Request $request)
     {
         $userId = auth()->user();
 
-        $reply = new Comment;
-        $reply->comment = $request->comment;
-        $reply->user()->associate($userId);
-        $reply->parent_id=$post->id;
-        $post->comments()->save($reply);
+        if ($userId) {
+            $reply = new Comment;
+            $reply->comment = $request->comment;
+            $reply->user()->associate($userId);
+            $reply->parent_id=$post->id;
+            $post->comments()->save($reply);
 
-        return new CommentResource(true, 'Reply berhasil', null);
+            if($post) {
+                //return success with Api Resource
+                return new CommentResource(true, 'Reply berhasil Disimpan!', null);
+            }
+
+            return new CommentResource(true, 'Reply Gagal Disimpan!', null);
+        }
+
+        return new CommentResource(false, 'Login dulu', null);
     }
 }
