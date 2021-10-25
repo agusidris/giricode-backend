@@ -26,9 +26,10 @@ class CommentController extends Controller
      * @param  mixed $request
      * @return void
      */
-    public function comment(Post $post, Request $request)
+    public function comment($slug, Request $request)
     {
         $userId = auth()->user();
+        $post = Post::where('slug', $slug)->first();
 
         $comment = new Comment;
         $comment->comment = $request->comment;

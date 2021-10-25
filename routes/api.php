@@ -48,7 +48,7 @@ Route::prefix('web')->group(function () {
 
     Route::post('/post/{post}/likes', [App\Http\Controllers\Api\Web\PostLikeController::class, 'like']);
 
-    Route::post('/post/{post}/comment', [App\Http\Controllers\Api\Web\CommentController::class, 'comment']);
+    Route::post('/post/{slug}/comment', [App\Http\Controllers\Api\Web\CommentController::class, 'comment']);
 
     Route::post('/post/{slug}/reply/{id}', [App\Http\Controllers\Api\Web\CommentController::class, 'reply']);
 
