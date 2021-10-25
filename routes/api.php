@@ -50,7 +50,7 @@ Route::prefix('web')->group(function () {
 
     Route::post('/post/{post}/comment', [App\Http\Controllers\Api\Web\CommentController::class, 'comment']);
 
-    Route::post('/post/{post}/reply', [App\Http\Controllers\Api\Web\CommentController::class, 'reply']);
+    Route::post('/post/{post}/reply/{comment}', [App\Http\Controllers\Api\Web\CommentController::class, 'reply']);
 
     Route::post('/visitor/{slug}', [App\Http\Controllers\Api\Web\VisitorController::class, 'getUserIp']);
 });
