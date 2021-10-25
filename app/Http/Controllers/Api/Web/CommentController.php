@@ -43,14 +43,14 @@ class CommentController extends Controller
         return new CommentResource(false, 'Comment Gagal Disimpan!', null);
     }
 
-    public function reply(Post $post, Comment $comment, Request $request)
+    public function reply(Post $post, $id, Request $request)
     {
         $userId = auth()->user();
 
         $reply = new Comment;
         $reply->comment = $request->comment;
         $reply->user()->associate($userId);
-        $reply->parent_id=$comment->id;
+        $reply->parent_id=$id;
         $post->comments()->save($reply);
 
         if($post) {
