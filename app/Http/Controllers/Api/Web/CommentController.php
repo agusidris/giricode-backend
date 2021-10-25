@@ -43,10 +43,11 @@ class CommentController extends Controller
         return new CommentResource(false, 'Comment Gagal Disimpan!', null);
     }
 
-    public function reply(Post $post, $id, Request $request)
+    public function reply($slug, $id, Request $request)
     {
         $userId = auth()->user();
         $comment = Comment::whereId($id)->first();
+        $post = Post::where('slug', $slug)->first();
 
         $reply = new Comment;
         $reply->comment = $request->comment;
