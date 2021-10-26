@@ -70,7 +70,7 @@ class Post extends Model implements HasMedia
      * @return void
      */
     public function views() {
-		return $this->hasMany(View::class)->orderByDesc('id');
+		return $this->hasMany(View::class);
 	}
 
     /**
@@ -90,7 +90,7 @@ class Post extends Model implements HasMedia
      */
     public function comments()
     {
-        return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id');
+        return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id')->orderByDesc('id');
     }
 
     /**
