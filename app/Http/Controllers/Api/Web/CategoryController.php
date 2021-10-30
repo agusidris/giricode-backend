@@ -27,7 +27,7 @@ class CategoryController extends Controller
 
     public function show($slug)
     {
-        $category = Category::with('posts.category', 'posts.tags.color', 'posts.user', 'posts.views', 'posts.post_series.posts', 'posts.likes.user', 'posts.comments', 'posts.comments.replies')
+        $category = Category::with('posts.category', 'posts.tags.color', 'posts.user', 'posts.post_series.posts', 'posts.likes.user', 'posts.comments', 'posts.comments.replies', 'posts.views')
             // ->withCount('likes', 'commentcount as comments_count', 'views')
             // ->withCount('posts.category')
             ->where('slug', $slug)->first();
