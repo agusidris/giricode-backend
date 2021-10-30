@@ -46,7 +46,7 @@ Route::prefix('web')->group(function () {
     //route web tags
     Route::resource('/tags', App\Http\Controllers\Api\Web\TagController::class, ['except' => ['create', 'store', 'edit', 'update', 'destroy'], 'as' => 'web']);
 
-    Route::post('/post/{post}/likes', [App\Http\Controllers\Api\Web\PostLikeController::class, 'like']);
+    Route::post('/post/{slug}/likes', [App\Http\Controllers\Api\Web\PostLikeController::class, 'like']);
 
     Route::post('/post/{slug}/comment', [App\Http\Controllers\Api\Web\CommentController::class, 'comment']);
 

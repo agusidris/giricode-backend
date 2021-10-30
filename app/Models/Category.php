@@ -37,6 +37,15 @@ class Category extends Model
     }
 
     /**
+     * Likes
+     *
+     * @return void
+     */
+	public function likes() {
+		return $this->morphMany(Like::class, 'likeable');
+	}
+
+    /**
      * getCreatedAtAttribute
      *
      * @param  mixed $date

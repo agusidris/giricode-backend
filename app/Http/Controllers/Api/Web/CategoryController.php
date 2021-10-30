@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api\Web;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
+use App\Models\Post;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class CategoryController extends Controller
 {
@@ -24,7 +27,9 @@ class CategoryController extends Controller
 
     public function show($slug)
     {
-        $category = Category::with('posts.category', 'posts.tags.color', 'posts.user', 'posts.post_series.posts', 'posts.likes.user')
+        $category = Category::with('posts.category', 'posts.tags.color', 'posts.user', 'posts.post_series.posts', 'posts.likes.user', 'posts.comments', 'posts.comments.replies')
+            // ->withCount('likes', 'commentcount as comments_count', 'views')
+            // ->withCount('posts.category')
             ->where('slug', $slug)->first();
 
         if ($category) {

@@ -26,11 +26,12 @@ class PostLikeController extends Controller
      * @param  mixed $post
      * @return void
      */
-    public function like(Post $post) {
+    public function like($slug) {
 
         $userId = auth()->user();
 
-        $this->authorize('like', $post);
+        $post = Post::where('slug', $slug)->first();
+        // $this->authorize('like', $post);
         // check
         if ($userId->hasLikedPost($post)) {
 
