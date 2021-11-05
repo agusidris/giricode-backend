@@ -53,6 +53,8 @@ Route::prefix('web')->group(function () {
     Route::post('/post/{slug}/reply/{id}', [App\Http\Controllers\Api\Web\CommentController::class, 'reply']);
 
     Route::post('/visitor/{slug}', [App\Http\Controllers\Api\Web\VisitorController::class, 'getUserIp']);
+
+    Route::post('/guestbook', [App\Http\Controllers\Api\Web\GuestBookController::class, 'store']);
 });
 
 //group route with prefix "admin"
@@ -77,6 +79,8 @@ Route::prefix('admin')->group(function () {
     Route::apiResource('/posts', App\Http\Controllers\Api\Admin\PostController::class);
 
     Route::apiResource('/postseries', App\Http\Controllers\Api\Admin\PostSeriesController::class);
+
+    Route::apiResource('/guestbook', App\Http\Controllers\Api\Admin\GuestBookController::class);
 
     Route::get('/post/categories', [App\Http\Controllers\Api\Admin\PostController::class, 'allCategories']);
 
