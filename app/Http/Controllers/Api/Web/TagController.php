@@ -31,7 +31,7 @@ class TagController extends Controller
      */
     public function show($slug)
     {
-        $tag = Tag::with('posts.category', 'posts.tags.color', 'posts.user')
+        $tag = Tag::with('posts.category', 'posts.tags.color', 'posts.user', 'posts.post_series.posts', 'posts.likes.user', 'posts.comments', 'posts.comments.replies', 'posts.views')
             ->where('slug', $slug)->first();
 
         if ($tag) {
