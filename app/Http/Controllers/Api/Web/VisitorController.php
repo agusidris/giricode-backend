@@ -20,7 +20,6 @@ class VisitorController extends Controller
      */
     public function getUserIp($slug)
     {
-        $userId = auth()->user();
         $post = Post::where('slug', $slug)->first();
 
         $ipAddress = '';
@@ -31,6 +30,8 @@ class VisitorController extends Controller
             $ipAddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
         else if(isset($_SERVER['HTTP_X_FORWARDED']))
             $ipAddress = $_SERVER['HTTP_X_FORWARDED'];
+        else if(isset($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']))
+            $ipAddress = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
         else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
             $ipAddress = $_SERVER['HTTP_FORWARDED_FOR'];
         else if(isset($_SERVER['HTTP_FORWARDED']))
