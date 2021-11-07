@@ -48,12 +48,12 @@ class VisitorController extends Controller
 
         if ($ipAddress === '127.0.0.1' || $ipAddress === 'UNKNOWN') {
 
-            return (new VisitorResource(false, 'Visitor Berjalan di Localhost', $ipAddress))->response()->setStatusCode(422);
+            return new VisitorResource(false, 'Visitor Berjalan di Localhost', $ipAddress);
 
         }  else {
 
             if ($check) {
-                return (new VisitorResource(false, 'Visitor Sudah Terdaftar hari ini', null))->response()->setStatusCode(422);
+                return new VisitorResource(false, 'Visitor Sudah Terdaftar hari ini', null);
             }
 
             $location = Location::get($ipAddress);
