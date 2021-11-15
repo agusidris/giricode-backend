@@ -54,7 +54,7 @@ class VisitorController extends Controller
         }  else {
 
             if ($check) {
-                return (new VisitorResource(false, 'Visitor Sudah Terdaftar hari ini', null))->response()->setStatusCode(404);
+                return new VisitorResource(false, 'Visitor Sudah Terdaftar hari ini', null);
             }
 
             $location = Location::get($ipAddress);
