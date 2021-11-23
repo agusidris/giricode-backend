@@ -58,7 +58,7 @@ class PostSeriesController extends Controller
             })->with('category', 'tags', 'user')->orderByDesc('id')->get();
 
             // return with Api Resource
-            return new PostSeriesResource(true, 'List Data Post', $posts);
+            return new PostSeriesResource(true, 'List Data Posts', $posts);
         }
     }
 
