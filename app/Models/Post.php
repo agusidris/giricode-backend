@@ -123,7 +123,7 @@ class Post extends Model implements HasMedia
      */
     public function getCreatedAtAttribute($date)
     {
-        return Carbon::parse($date)->isoFormat('dddd, DD MMM Y');
+        return Carbon::parse($date)->isoFormat('DD MMM Y');
     }
 
     /**
@@ -134,7 +134,7 @@ class Post extends Model implements HasMedia
      */
     public function getUpdatedAtAttribute($date)
     {
-        return Carbon::parse($date)->isoFormat('dddd, DD MMM Y');
+        return Carbon::parse($date)->isoFormat('DD MMM Y');
     }
 
     public function registerMediaConversions(Media $media = null): void
