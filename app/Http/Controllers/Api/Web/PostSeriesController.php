@@ -18,7 +18,7 @@ class PostSeriesController extends Controller
         // get Posts
         $postseries = PostSeries::when(request()->q, function($postseries) {
             $postseries = $postseries->where('title', 'like', '%'. request()->q . '%');
-        })->with('posts.category', 'posts.tags', 'user')->latest()->paginate(6);
+        })->with('posts.category', 'posts.tags', 'user')->latest()->paginate(9);
 
         // return with Api Resource
         return new PostSeriesResource(true, 'List Data Post Series', $postseries);
