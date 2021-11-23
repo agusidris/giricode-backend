@@ -40,9 +40,6 @@ class VisitorController extends Controller
             $ipAddress = $_SERVER['REMOTE_ADDR'];
         else
             $ipAddress = 'UNKNOWN';
-        // $ipAddress = '125.164.0.239';
-        // return Location::get($ipAddress);
-        // return $location;
 
         $check = View::where('post_id', $post->id)->where('ipAddress', $ipAddress)->whereDate('created_at', Carbon::today())->first();
         // return $post;

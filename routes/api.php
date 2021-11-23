@@ -80,6 +80,8 @@ Route::prefix('admin')->group(function () {
 
     Route::apiResource('/postseries', App\Http\Controllers\Api\Admin\PostSeriesController::class);
 
+    Route::get('/postseries/posts', [App\Http\Controllers\Api\Admin\PostController::class, 'allPosts']);
+
     Route::apiResource('/guestbook', App\Http\Controllers\Api\Admin\GuestBookController::class);
 
     Route::get('/post/categories', [App\Http\Controllers\Api\Admin\PostController::class, 'allCategories']);

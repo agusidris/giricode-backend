@@ -45,6 +45,23 @@ class PostSeriesController extends Controller
         }
     }
 
+    public function allPosts()
+    {
+        $userId = auth()->user()->id;
+        $role = auth()->user()->role;
+
+        // check role
+        if ($role === 'programmer' || $role === 'admin' || $role === 'operator') {
+            // get Posts
+            $posts = Post::when(request()->q, function($posts) {
+                $posts = $posts->where('title', 'like', '%'. request()->q . '%');
+            })->with('category', 'tags', 'user')->orderByDesc('id')->get();
+
+            // return with Api Resource
+            return new PostSeriesResource(true, 'List Data Post', $posts);
+        }
+    }
+
 
     /**
      * store
