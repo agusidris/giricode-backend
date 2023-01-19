@@ -9,7 +9,7 @@
 
 ## About Laravel
 
-### Build with Laravel 8
+### Build with Laravel 8 and PHP 7.4
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
