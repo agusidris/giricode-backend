@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'info'      => 'This is my info',
             'username'  => 'nuxtcraft',
             'email'     => 'magusidris@gmail.com',
-            'password'  => Hash::make('Feuryeur19571947'),
+            'password'  => Hash::make('Tidaktau'),
         ]);
     }
 }
